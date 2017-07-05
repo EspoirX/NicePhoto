@@ -14,6 +14,7 @@ abstract class RxBaseActivity : RxAppCompatActivity() {
             throw RuntimeException("layout resId undefind")
         }
         setContentView(getContentViewId())
+        init()
     }
 
     /**
