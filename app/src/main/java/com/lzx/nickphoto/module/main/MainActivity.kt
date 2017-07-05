@@ -1,12 +1,14 @@
 package com.lzx.nickphoto.module.main
 
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
+import android.widget.Toast
 import com.lzx.nickphoto.R
 import com.lzx.nickphoto.bean.PhotoInfo
 import com.lzx.nickphoto.common.RxBaseActivity
+import com.lzx.nickphoto.module.main.adapter.PhotoAdapter
 import com.lzx.nickphoto.module.main.contract.PhotoContract
 import com.lzx.nickphoto.module.main.presenter.PhotoPresenter
-import com.lzx.nickphoto.utils.LogUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : RxBaseActivity(), PhotoContract.IPhotoView {
@@ -21,25 +23,34 @@ class MainActivity : RxBaseActivity(), PhotoContract.IPhotoView {
     }
 
     lateinit var mPresenter: PhotoContract.IPhotoPresenter
+    lateinit var mAdapter: PhotoAdapter
 
     override fun init() {
         mPresenter = PhotoPresenter(this)
 
+        recycle_view.setHasFixedSize(true)
         recycle_view.layoutManager = LinearLayoutManager(this)
+        mAdapter = PhotoAdapter(this)
+        recycle_view.adapter = mAdapter
 
         mPresenter.getAllPhotoList(bindToLifecycle())
     }
 
     override fun showPro(isShow: Boolean) {
-
+        if (isShow) {
+            load_pro.visibility = View.VISIBLE
+        } else {
+            load_pro.visibility = View.GONE
+        }
     }
 
     override fun OnGetPhotoSuccess(result: ArrayList<PhotoInfo>) {
-        LogUtils.i("result = " + result.size)
+        mAdapter.setDataList(result)
+        mAdapter.notifyDataSetChanged()
     }
 
     override fun OnError(msg: String) {
-
+        Toast.makeText(this, "msg = " + msg, Toast.LENGTH_SHORT).show()
     }
 }
 
