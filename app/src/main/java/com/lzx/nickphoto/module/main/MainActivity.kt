@@ -33,7 +33,7 @@ class MainActivity : RxBaseActivity(), PhotoContract.IPhotoView {
     override fun init() {
         mPresenter = PhotoPresenter(this)
         //SwipeRefreshLayout
-        refresh_layout.setColorSchemeResources(R.color.colorPrimary)
+        refresh_layout.setColorSchemeResources(R.color.colorPrimaryDark)
         refresh_layout.setOnRefreshListener({
             mPresenter.getAllPhotoList(bindToLifecycle(), false)
         })

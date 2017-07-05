@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -26,6 +27,7 @@ class PhotoAdapter(context: Context) : LoadMoreAdapter<PhotoInfo>(context) {
         val holder: BannerHolder = viewHolder as BannerHolder
         val info: PhotoInfo = mDataList[position]
 
+        holder.mRootLayout.setBackgroundColor(Color.parseColor(info.color))
         Glide.with(context).load(info.urls.small)
                 .placeholder(Color.parseColor(info.color))
                 .error(Color.parseColor(info.color))
@@ -43,6 +45,7 @@ class PhotoAdapter(context: Context) : LoadMoreAdapter<PhotoInfo>(context) {
     private inner class BannerHolder(itemView: View) : BaseViewHolder(itemView, context, false) {
         var mImageView: ImageView = find(R.id.image_photo)
         var mImageTitle: TextView = find(R.id.image_title)
+        var mRootLayout: RelativeLayout = find(R.id.root_layout)
     }
 
 

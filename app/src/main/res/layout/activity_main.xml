@@ -23,7 +23,7 @@
         android:layout_height="40dp"
         android:layout_centerInParent="true"
         android:visibility="gone"
-        app:matProg_barColor="@color/colorPrimary"
+        app:matProg_barColor="@color/colorPrimaryDark"
         app:matProg_barWidth="2dp"
         app:matProg_progressIndeterminate="true"/>
 
