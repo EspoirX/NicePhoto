@@ -32,6 +32,12 @@ class MainActivity : RxBaseActivity(), PhotoContract.IPhotoView {
 
     override fun init() {
         mPresenter = PhotoPresenter(this)
+        //SwipeRefreshLayout
+        refresh_layout.setColorSchemeResources(R.color.colorPrimary)
+        refresh_layout.setOnRefreshListener({
+            mPresenter.getAllPhotoList(bindToLifecycle(), false)
+        })
+        //RecycleView
         recycle_view.setHasFixedSize(true)
         recycle_view.layoutManager = LinearLayoutManager(this)
         mAdapter = PhotoAdapter(this)
@@ -41,7 +47,7 @@ class MainActivity : RxBaseActivity(), PhotoContract.IPhotoView {
                 mPresenter.loadMorePhotoList(bindToLifecycle())
             }
         }
-        mPresenter.getAllPhotoList(bindToLifecycle())
+        mPresenter.getAllPhotoList(bindToLifecycle(), true)
     }
 
     override fun showPro(isShow: Boolean) {
@@ -54,9 +60,13 @@ class MainActivity : RxBaseActivity(), PhotoContract.IPhotoView {
 
     override fun OnGetPhotoSuccess(result: ArrayList<PhotoInfo>) {
         mPhotoList = result
+        val callback: PhotoDiffCallBack = PhotoDiffCallBack(mAdapter.mDataList, mPhotoList)
+        val diffResult = DiffUtil.calculateDiff(callback)
         mAdapter.setDataList(mPhotoList)
-        mAdapter.notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(mAdapter)
         mAdapter.setShowLoadMore(result.size >= PhotoModel.per_page)
+        recycle_view.scrollToPosition(0)
+        refresh_layout.isRefreshing = false
     }
 
     override fun loadMoreSuccess(result: ArrayList<PhotoInfo>) {

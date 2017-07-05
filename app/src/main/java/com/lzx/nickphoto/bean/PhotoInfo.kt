@@ -12,6 +12,6 @@ data class PhotoInfo(var id: String,
                      var likes: String,
                      var liked_by_user: String,
                      var description: String,
-                     val userInfo: UserInfo,
+                     val user: UserInfo,
                      val urls: Urls,
                      val links: Links)

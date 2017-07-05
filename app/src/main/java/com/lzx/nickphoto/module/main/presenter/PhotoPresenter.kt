@@ -18,7 +18,7 @@ class PhotoPresenter constructor(var mView: PhotoContract.IPhotoView) : PhotoCon
     var page: Int = 1
     var isMore: Boolean = false
 
-    override fun getAllPhotoList(@NonNull transformer: LifecycleTransformer<ResponseBody>) {
+    override fun getAllPhotoList(@NonNull transformer: LifecycleTransformer<ResponseBody>,isShow:Boolean) {
         page = 1
         model.getAllPhotoList(page, transformer, object : ListDataCallBack<PhotoInfo> {
             override fun OnSuccess(result: ArrayList<PhotoInfo>) {
@@ -28,7 +28,7 @@ class PhotoPresenter constructor(var mView: PhotoContract.IPhotoView) : PhotoCon
             }
 
             override fun onStart() {
-                mView.showPro(true)
+                mView.showPro(isShow)
             }
 
             override fun onComplete() {

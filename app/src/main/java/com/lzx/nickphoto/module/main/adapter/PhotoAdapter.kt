@@ -1,10 +1,12 @@
 package com.lzx.nickphoto.module.main.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.lzx.nickphoto.R
@@ -21,9 +23,16 @@ class PhotoAdapter(context: Context) : LoadMoreAdapter<PhotoInfo>(context) {
     }
 
     override fun BindViewHolder(viewHolder: BaseViewHolder, position: Int) {
-        var holder: BannerHolder = viewHolder as BannerHolder
-        var info: PhotoInfo = mDataList[position]
-        Glide.with(context).load(info.urls.small).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.mImageView);
+        val holder: BannerHolder = viewHolder as BannerHolder
+        val info: PhotoInfo = mDataList[position]
+
+        Glide.with(context).load(info.urls.small)
+                .placeholder(Color.parseColor(info.color))
+                .error(Color.parseColor(info.color))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.mImageView)
+        holder.mImageTitle.text = info.user.name
+        holder.itemView.setOnClickListener { }
     }
 
     override fun onCreateBaseViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -33,5 +42,8 @@ class PhotoAdapter(context: Context) : LoadMoreAdapter<PhotoInfo>(context) {
 
     private inner class BannerHolder(itemView: View) : BaseViewHolder(itemView, context, false) {
         var mImageView: ImageView = find(R.id.image_photo)
+        var mImageTitle: TextView = find(R.id.image_title)
     }
+
+
 }

@@ -11,7 +11,7 @@ import okhttp3.ResponseBody
 interface PhotoContract {
 
     interface IPhotoPresenter {
-        fun getAllPhotoList(@NonNull transformer: LifecycleTransformer<ResponseBody>)
+        fun getAllPhotoList(@NonNull transformer: LifecycleTransformer<ResponseBody>,isShow:Boolean)
         fun loadMorePhotoList(@NonNull transformer: LifecycleTransformer<ResponseBody>)
     }
 
