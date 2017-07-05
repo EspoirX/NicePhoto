@@ -13,14 +13,18 @@ import okhttp3.ResponseBody
  */
 class PhotoPresenter constructor(var mView: PhotoContract.IPhotoView) : PhotoContract.IPhotoPresenter {
 
-    var model: PhotoModel = PhotoModel()
 
+    var model: PhotoModel = PhotoModel()
+    var page: Int = 1
+    var isMore: Boolean = false
 
     override fun getAllPhotoList(@NonNull transformer: LifecycleTransformer<ResponseBody>) {
-        model.getAllPhotoList(transformer, object : ListDataCallBack<PhotoInfo> {
+        page = 1
+        model.getAllPhotoList(page, transformer, object : ListDataCallBack<PhotoInfo> {
             override fun OnSuccess(result: ArrayList<PhotoInfo>) {
                 mView.showPro(false)
                 mView.OnGetPhotoSuccess(result)
+                isMore = result.size >= PhotoModel.per_page
             }
 
             override fun onStart() {
@@ -39,5 +43,29 @@ class PhotoPresenter constructor(var mView: PhotoContract.IPhotoView) : PhotoCon
         })
     }
 
+    override fun loadMorePhotoList(transformer: LifecycleTransformer<ResponseBody>) {
+        if (isMore) {
+            page++
+            model.getAllPhotoList(page, transformer, object : ListDataCallBack<PhotoInfo> {
+                override fun OnSuccess(result: ArrayList<PhotoInfo>) {
+                    mView.loadMoreSuccess(result)
+                    isMore = result.size >= PhotoModel.per_page
+                }
+
+                override fun onStart() {
+                }
+
+                override fun onComplete() {
+                }
+
+                override fun onError(msg: String) {
+                    super.onError(msg)
+                    mView.loadMoreError(msg)
+                }
+            })
+        } else {
+            mView.loadFinishAllData()
+        }
+    }
 
 }

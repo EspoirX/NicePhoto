@@ -17,10 +17,14 @@ import org.json.JSONArray
  */
 class PhotoModel {
 
-    fun getAllPhotoList(@NonNull transformer: LifecycleTransformer<ResponseBody>, @NonNull callback: ListDataCallBack<PhotoInfo>) {
+    companion object {
+        val per_page: Int = 15
+    }
+
+    fun getAllPhotoList(page: Int, @NonNull transformer: LifecycleTransformer<ResponseBody>, @NonNull callback: ListDataCallBack<PhotoInfo>) {
         checkNotNull(transformer)
         checkNotNull(callback)
-        RetrofitHelper.instance.getPhotoAPI().getAllPhoto()
+        RetrofitHelper.instance.getPhotoAPI().getAllPhoto(page, per_page)
                 .compose(transformer)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

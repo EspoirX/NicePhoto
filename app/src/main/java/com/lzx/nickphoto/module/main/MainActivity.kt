@@ -1,14 +1,18 @@
 package com.lzx.nickphoto.module.main
 
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
 import com.lzx.nickphoto.R
 import com.lzx.nickphoto.bean.PhotoInfo
+import com.lzx.nickphoto.callback.PhotoDiffCallBack
 import com.lzx.nickphoto.common.RxBaseActivity
 import com.lzx.nickphoto.module.main.adapter.PhotoAdapter
 import com.lzx.nickphoto.module.main.contract.PhotoContract
+import com.lzx.nickphoto.module.main.model.PhotoModel
 import com.lzx.nickphoto.module.main.presenter.PhotoPresenter
+import com.lzx.nickphoto.utils.adapter.LoadMoreAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : RxBaseActivity(), PhotoContract.IPhotoView {
@@ -24,15 +28,19 @@ class MainActivity : RxBaseActivity(), PhotoContract.IPhotoView {
 
     lateinit var mPresenter: PhotoContract.IPhotoPresenter
     lateinit var mAdapter: PhotoAdapter
+    lateinit var mPhotoList: ArrayList<PhotoInfo>
 
     override fun init() {
         mPresenter = PhotoPresenter(this)
-
         recycle_view.setHasFixedSize(true)
         recycle_view.layoutManager = LinearLayoutManager(this)
         mAdapter = PhotoAdapter(this)
         recycle_view.adapter = mAdapter
-
+        mAdapter.mOnLoadMoreListener = object : LoadMoreAdapter.OnLoadMoreListener {
+            override fun onLoadMore() {
+                mPresenter.loadMorePhotoList(bindToLifecycle())
+            }
+        }
         mPresenter.getAllPhotoList(bindToLifecycle())
     }
 
@@ -45,8 +53,33 @@ class MainActivity : RxBaseActivity(), PhotoContract.IPhotoView {
     }
 
     override fun OnGetPhotoSuccess(result: ArrayList<PhotoInfo>) {
-        mAdapter.setDataList(result)
+        mPhotoList = result
+        mAdapter.setDataList(mPhotoList)
         mAdapter.notifyDataSetChanged()
+        mAdapter.setShowLoadMore(result.size >= PhotoModel.per_page)
+    }
+
+    override fun loadMoreSuccess(result: ArrayList<PhotoInfo>) {
+        mPhotoList.addAll(result)
+        val callback: PhotoDiffCallBack = PhotoDiffCallBack(mAdapter.mDataList, mPhotoList)
+        val diffResult = DiffUtil.calculateDiff(callback, true)
+        mAdapter.setDataList(mPhotoList)
+        diffResult.dispatchUpdatesTo(mAdapter)
+        recycle_view.scrollToPosition(mAdapter.itemCount - PhotoModel.per_page - 2)
+    }
+
+    override fun loadMoreError(msg: String) {
+        mAdapter.setCanLoading(false)
+        Toast.makeText(this, "加载失败", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun loadFinishAllData() {
+        if (mPhotoList.size >= PhotoModel.per_page) {
+            mAdapter.setCanLoading(false)
+            mAdapter.showLoadAllDataUI()
+        } else {
+            mAdapter.setShowLoadMore(false)
+        }
     }
 
     override fun OnError(msg: String) {

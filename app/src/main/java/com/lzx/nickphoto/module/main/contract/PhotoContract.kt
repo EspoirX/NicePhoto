@@ -12,11 +12,15 @@ interface PhotoContract {
 
     interface IPhotoPresenter {
         fun getAllPhotoList(@NonNull transformer: LifecycleTransformer<ResponseBody>)
+        fun loadMorePhotoList(@NonNull transformer: LifecycleTransformer<ResponseBody>)
     }
 
     interface IPhotoView {
         fun showPro(isShow: Boolean)
         fun OnGetPhotoSuccess(result: ArrayList<PhotoInfo>)
+        fun loadMoreSuccess(result: ArrayList<PhotoInfo>)
+        fun loadMoreError(msg: String)
+        fun loadFinishAllData()
         fun OnError(msg: String)
     }
 
