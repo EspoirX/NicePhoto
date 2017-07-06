@@ -25,7 +25,7 @@ class ParallaxScrollView : ScrollView {
     override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
         super.onScrollChanged(l, t, oldl, oldt)
         if (mScrollViewListener != null) {
-            mScrollViewListener?.onScrollChanged(this, l, t, oldl, oldt);
+            mScrollViewListener?.onScrollChanged(this, l, t, oldl, oldt)
         }
     }
 

@@ -1,7 +1,12 @@
 package com.lzx.nickphoto.module.main.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.os.Build
+import android.support.v4.app.ActivityCompat
+import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +17,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.lzx.nickphoto.R
 import com.lzx.nickphoto.bean.PhotoInfo
+import com.lzx.nickphoto.module.detail.PhotoDetailActivity
+import com.lzx.nickphoto.module.main.MainActivity
 import com.lzx.nickphoto.utils.adapter.BaseViewHolder
 import com.lzx.nickphoto.utils.adapter.LoadMoreAdapter
 
@@ -34,7 +41,19 @@ class PhotoAdapter(context: Context) : LoadMoreAdapter<PhotoInfo>(context) {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.mImageView)
         holder.mImageTitle.text = info.user.name
-        holder.itemView.setOnClickListener { }
+
+        holder.itemView.setOnClickListener {
+            val intent: Intent = Intent(context, PhotoDetailActivity::class.java)
+            intent.putExtra("photoId", info.id)
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                context.startActivity(intent)
+            } else {
+                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        context as MainActivity,
+                        Pair.create<View, String>(holder.mImageView, context.getString(R.string.transition_photo)))
+                ActivityCompat.startActivity(context, intent, options.toBundle())
+            }
+        }
     }
 
     override fun onCreateBaseViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {

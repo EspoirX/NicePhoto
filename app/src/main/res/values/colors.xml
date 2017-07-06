@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#F9F7F6</color>
-    <color name="colorPrimaryDark">#2367A5</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryDark">#272233</color>
+    <color name="colorAccent">#ef272233</color>
 
     <color name="white">#FFFFFF</color>
     <color name="white_alpha_10">#19ffffff</color>
@@ -23,5 +23,7 @@
     <color name="black_alpha_90">#e5000000</color>
 
     <color name="image_place_holder_color">#F1E7DD</color>
+    <color name="bg_photo_detail">#272233</color>
+    <color name="bg_photo_detail_alpha">#ef272233</color>
 
 </resources>
