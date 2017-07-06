@@ -3,6 +3,9 @@ package com.lzx.nickphoto.module.detail
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Build
+import android.support.design.widget.Snackbar
+import android.support.v4.content.ContextCompat
+import android.view.View
 import com.google.gson.Gson
 import com.lzx.nickphoto.R
 import com.lzx.nickphoto.bean.PhotoInfo
@@ -89,6 +92,15 @@ class PhotoDetailActivity : RxBaseActivity() {
         detail_focal_length.text = info.exif.focal_length
         detail_camera.text = info.exif.model
         detail_exposure.text = info.exif.iso
+
+        detail_size.setOnClickListener { showSnackbar(detail_size, "尺寸：" + detail_size.text) }
+        detail_time.setOnClickListener { showSnackbar(detail_size, "快门时间：" + detail_time.text) }
+        detail_color.setOnClickListener { showSnackbar(detail_size, "颜色：" + detail_color.text) }
+        detail_aperture.setOnClickListener { showSnackbar(detail_size, "光圈：" + detail_aperture.text) }
+        detail_location.setOnClickListener { showSnackbar(detail_size, "位置：" + detail_location.text) }
+        detail_focal_length.setOnClickListener { showSnackbar(detail_size, "焦距：" + detail_focal_length.text) }
+        detail_camera.setOnClickListener { showSnackbar(detail_size, "器材：" + detail_camera.text) }
+        detail_exposure.setOnClickListener { showSnackbar(detail_size, "曝光率：" + detail_exposure.text) }
     }
 
     @SuppressLint("SetTextI18n")
@@ -96,6 +108,15 @@ class PhotoDetailActivity : RxBaseActivity() {
         detail_likes.text = info.likesTotal
         detail_see.text = info.viewsTotal
         detail_download.text = info.downloadTotal
+        detail_likes.setOnClickListener { showSnackbar(detail_size, "喜欢：" + detail_likes.text) }
+        detail_see.setOnClickListener { showSnackbar(detail_size, "浏览次数：" + detail_see.text) }
+        detail_download.setOnClickListener { showSnackbar(detail_size, "下载次数：" + detail_download.text) }
+    }
+
+    fun showSnackbar(view: View, text: String, duration: Int = Snackbar.LENGTH_SHORT) {
+        val mSnackbar: Snackbar = Snackbar.make(view, text, duration)
+        mSnackbar.view.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
+        mSnackbar.show()
     }
 
     override fun onBackPressed() {
