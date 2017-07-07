@@ -75,12 +75,10 @@ class DownloadDialog : RxBaseDialog() {
                         mProTitle.text = "下载暂停中..."
                     }
                 }).start()
-
-
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onStop() {
+        super.onStop()
         FileDownloader.getImpl().pauseAll()
     }
 
@@ -91,7 +89,7 @@ class DownloadDialog : RxBaseDialog() {
     fun byteToMb(bytes: Long): Float {
         val filesize: BigDecimal = BigDecimal(bytes)
         val megabyte: BigDecimal = BigDecimal(1024 * 1024)
-        var returnValue: Float = filesize.divide(megabyte, 2, BigDecimal.ROUND_UP).toFloat()
+        val returnValue: Float = filesize.divide(megabyte, 2, BigDecimal.ROUND_UP).toFloat()
         if (returnValue > 1) {
             return returnValue
         }
