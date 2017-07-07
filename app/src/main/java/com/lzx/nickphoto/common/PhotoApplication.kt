@@ -1,6 +1,7 @@
 package com.lzx.nickphoto.common
 
 import android.app.Application
+import com.liulishuo.filedownloader.FileDownloader
 import kotlin.properties.Delegates
 
 /**
@@ -15,7 +16,6 @@ class PhotoApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        FileDownloader.setup(this)
     }
-
-
 }

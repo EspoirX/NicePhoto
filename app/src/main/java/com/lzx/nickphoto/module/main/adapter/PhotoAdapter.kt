@@ -45,6 +45,8 @@ class PhotoAdapter(context: Context) : LoadMoreAdapter<PhotoInfo>(context) {
         holder.itemView.setOnClickListener {
             val intent: Intent = Intent(context, PhotoDetailActivity::class.java)
             intent.putExtra("photoId", info.id)
+            intent.putExtra("photoUrl",info.urls.small)
+            intent.putExtra("photoColor",info.color)
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                 context.startActivity(intent)
             } else {

@@ -70,6 +70,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/btn_download"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -92,6 +93,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/btn_share"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -114,6 +116,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/btn_wallpaper"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -156,35 +159,37 @@
         <TextView
             android:id="@+id/detail_size"
             android:layout_width="180dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_below="@+id/detail_title"
             android:layout_marginLeft="15dp"
             android:drawableLeft="@drawable/ic_size"
             android:drawablePadding="15dp"
+            android:gravity="center_vertical"
             android:textColor="@color/white_alpha_80"
             android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/detail_time"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
             android:layout_below="@+id/detail_title"
             android:layout_marginLeft="15dp"
             android:layout_toRightOf="@+id/detail_size"
             android:drawableLeft="@drawable/ic_time"
             android:drawablePadding="15dp"
+            android:gravity="center_vertical"
             android:textColor="@color/white_alpha_80"
             android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/detail_color"
             android:layout_width="180dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_below="@+id/detail_size"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
             android:drawableLeft="@drawable/ic_color"
             android:drawablePadding="15dp"
+            android:gravity="center_vertical"
             android:textColor="@color/white_alpha_80"
             android:textSize="14sp"/>
 
@@ -195,69 +200,70 @@
             android:layout_alignRight="@+id/detail_color"
             android:layout_below="@+id/detail_size"
             android:layout_marginRight="70dp"
-            android:layout_marginTop="20dp"/>
-
+            android:layout_marginTop="10dp"/>
 
         <TextView
             android:id="@+id/detail_aperture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
             android:layout_below="@+id/detail_time"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
             android:layout_toRightOf="@+id/detail_color"
             android:drawableLeft="@drawable/ic_aperture"
             android:drawablePadding="15dp"
+            android:gravity="center_vertical"
             android:textColor="@color/white_alpha_80"
             android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/detail_location"
             android:layout_width="180dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_below="@+id/detail_aperture"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
             android:drawableLeft="@drawable/ic_location"
+
             android:drawablePadding="15dp"
+            android:gravity="center_vertical"
             android:textColor="@color/white_alpha_80"
             android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/detail_focal_length"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
             android:layout_below="@+id/detail_aperture"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
             android:layout_toRightOf="@+id/detail_location"
             android:drawableLeft="@drawable/ic_focal_length"
             android:drawablePadding="15dp"
+            android:gravity="center_vertical"
             android:textColor="@color/white_alpha_80"
             android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/detail_camera"
             android:layout_width="180dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_below="@+id/detail_location"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
             android:drawableLeft="@drawable/ic_camera"
+
             android:drawablePadding="15dp"
+            android:gravity="center_vertical"
             android:textColor="@color/white_alpha_80"
             android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/detail_exposure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
             android:layout_below="@+id/detail_focal_length"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
             android:layout_toRightOf="@+id/detail_camera"
             android:drawableLeft="@drawable/ic_exposure"
             android:drawablePadding="15dp"
+            android:gravity="center_vertical"
             android:textColor="@color/white_alpha_80"
             android:textSize="14sp"/>
 
@@ -286,6 +292,7 @@
             android:textSize="14sp"/>
 
         <TextView
+            android:id="@+id/detail_likes_text"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_below="@+id/statistics_title"
@@ -309,6 +316,7 @@
             android:textSize="14sp"/>
 
         <TextView
+            android:id="@+id/detail_see_text"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_below="@+id/detail_likes"
@@ -333,6 +341,7 @@
             android:textSize="14sp"/>
 
         <TextView
+            android:id="@+id/detail_download_text"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_below="@+id/detail_see"
