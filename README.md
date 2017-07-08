@@ -1,7 +1,7 @@
 #### NicePhoto
 
-<a href="art/icon1.png"><img src="art/icon1.png" width="30%"/></a>
-<a href="art/icon2.png"><img src="art/icon2.png" width="30%"/></a>
+<a href="art/icon1.png"><img src="art/icon1.png" width="10%"/></a>
+<a href="art/icon2.png"><img src="art/icon2.png" width="10%"/></a>
 
 一款超简单的图片浏览+设置壁纸+图片下载的App。
 拥有数以百万计的图片资源，来自 https://unsplash.com/
@@ -36,12 +36,16 @@ app非常简单，只有2层界面，是在学习Kotlin时的练手项目，主�
 #### Thanks
 
 感谢JokAr的知乎日报项目提供参考和学习：https://github.com/a1018875550/ZhihuDaily
+
 感谢Mysplash项目提供UI参考：https://github.com/WangDaYeeeeee/Mysplash
 
 #### About me
 An android developer in GuangZhou
+
 简书：[http://www.jianshu.com/users/286f9ad9c417/latest_articles](http://www.jianshu.com/users/286f9ad9c417/latest_articles)
+
 Email:386707112@qq.com
+
 If you want to make friends with me, You can give me a Email and follow me。
 
 #### License
