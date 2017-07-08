@@ -1,7 +1,7 @@
 #### NicePhoto
 
-<a href="art/icon1.png"><img src="art/icon1.png" width="100%"/></a>
-<a href="art/icon2.png"><img src="art/icon2.png" width="100%"/></a>
+<a href="art/icon1.png"><img src="art/icon1.png" width="30%"/></a>
+<a href="art/icon2.png"><img src="art/icon2.png" width="30%"/></a>
 
 一款超简单的图片浏览+设置壁纸+图片下载的App。
 拥有数以百万计的图片资源，来自 https://unsplash.com/
@@ -24,14 +24,14 @@ app非常简单，只有2层界面，是在学习Kotlin时的练手项目，主�
 
 #### 截图
 
-<a href="art/1.png"><img src="art/1.png" width="50%"/></a>
-<a href="art/2.png"><img src="art/2.png" width="50%"/></a>
-<a href="art/3.png"><img src="art/3.png" width="50%"/></a>
-<a href="art/4.png"><img src="art/4.png" width="50%"/></a>
-<a href="art/5.png"><img src="art/5.png" width="50%"/></a>
-<a href="art/6.png"><img src="art/6.png" width="50%"/></a>
-<a href="art/7.png"><img src="art/7.png" width="50%"/></a>
-<a href="art/8.png"><img src="art/8.png" width="50%"/></a>
+<a href="art/1.png"><img src="art/1.png" width="30%"/></a>
+<a href="art/2.png"><img src="art/2.png" width="30%"/></a>
+<a href="art/3.png"><img src="art/3.png" width="30%"/></a>
+<a href="art/4.png"><img src="art/4.png" width="30%"/></a>
+<a href="art/5.png"><img src="art/5.png" width="30%"/></a>
+<a href="art/6.png"><img src="art/6.png" width="30%"/></a>
+<a href="art/7.png"><img src="art/7.png" width="30%"/></a>
+<a href="art/8.png"><img src="art/8.png" width="30%"/></a>
 
 #### Thanks
 
