@@ -1,5 +1,7 @@
 package com.lzx.nickphoto.module.main
 
+import android.Manifest
+import android.os.Bundle
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -12,7 +14,13 @@ import com.lzx.nickphoto.module.main.adapter.PhotoAdapter
 import com.lzx.nickphoto.module.main.contract.PhotoContract
 import com.lzx.nickphoto.module.main.model.PhotoModel
 import com.lzx.nickphoto.module.main.presenter.PhotoPresenter
+import com.lzx.nickphoto.utils.CommonUtil
+import com.lzx.nickphoto.utils.FileUtil
 import com.lzx.nickphoto.utils.adapter.LoadMoreAdapter
+import com.lzx.nickphoto.widget.DownloadDialog
+import com.tbruyelle.rxpermissions2.RxPermissions
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : RxBaseActivity(), PhotoContract.IPhotoView {
@@ -24,9 +32,12 @@ class MainActivity : RxBaseActivity(), PhotoContract.IPhotoView {
     lateinit var mPresenter: PhotoContract.IPhotoPresenter
     lateinit var mAdapter: PhotoAdapter
     lateinit var mPhotoList: ArrayList<PhotoInfo>
+    lateinit var mRxPermissions: RxPermissions
 
     override fun init() {
         mPresenter = PhotoPresenter(this)
+        mRxPermissions = RxPermissions(this)
+
         //SwipeRefreshLayout
         refresh_layout.setColorSchemeResources(R.color.colorPrimaryDark)
         refresh_layout.setOnRefreshListener({
@@ -42,7 +53,36 @@ class MainActivity : RxBaseActivity(), PhotoContract.IPhotoView {
                 mPresenter.loadMorePhotoList(bindToLifecycle())
             }
         }
+        mAdapter.setOnDownloadClickListener(object : PhotoAdapter.OnDownloadClickListener {
+            override fun download(view: View, downloadUrl: String) {
+                downloadImage(view, downloadUrl)
+            }
+        })
         mPresenter.getAllPhotoList(bindToLifecycle(), true)
+    }
+
+    fun downloadImage(view: View, downloadUrl: String) {
+        mRxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .filter { aBoolean -> aBoolean }
+                .filter {
+                    if (FileUtil.isExistsImage(downloadUrl)) {
+                        CommonUtil.showSnackBar(this@MainActivity, view,
+                                "文件已经下载了哦,到 ../NickPhoto/download 查看吧")
+                        return@filter false
+                    }
+                    return@filter true
+                }
+                .observeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    val downloadDialog: DownloadDialog = DownloadDialog()
+                    val bundle: Bundle = Bundle()
+                    bundle.putString("downloadUrl", downloadUrl)
+                    downloadDialog.arguments = bundle
+                    downloadDialog.show(supportFragmentManager, "DownloadDialog")
+                }, {
+                    CommonUtil.toast(this@MainActivity, "下载失败,请重试")
+                })
     }
 
     override fun showPro(isShow: Boolean) {

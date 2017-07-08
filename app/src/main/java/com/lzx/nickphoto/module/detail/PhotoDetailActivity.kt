@@ -20,6 +20,7 @@ import com.lzx.nickphoto.bean.PhotoInfo
 import com.lzx.nickphoto.bean.StatisticsInfo
 import com.lzx.nickphoto.common.RxBaseActivity
 import com.lzx.nickphoto.utils.CommonUtil
+import com.lzx.nickphoto.utils.FileUtil
 import com.lzx.nickphoto.utils.ImageLoader
 import com.lzx.nickphoto.utils.network.RetrofitHelper
 import com.lzx.nickphoto.widget.DownloadDialog
@@ -46,7 +47,7 @@ class PhotoDetailActivity : RxBaseActivity(), View.OnClickListener {
     lateinit var mPhotoInfo: PhotoInfo
     lateinit var mWallpaperManager: WallpaperManager  //壁纸管理器
     lateinit var mRxPermissions: RxPermissions
-    lateinit var dialog: ProDialog
+
 
     override fun init() {
         photoId = intent.getStringExtra("photoId")
@@ -55,9 +56,25 @@ class PhotoDetailActivity : RxBaseActivity(), View.OnClickListener {
 
         mWallpaperManager = WallpaperManager.getInstance(this)
         mRxPermissions = RxPermissions(this)
-        dialog = ProDialog()
+
 
         btnBack.setOnClickListener { finishActivity(0) }
+        detail_size.setOnClickListener(this)
+        detail_time.setOnClickListener(this)
+        detail_color.setOnClickListener(this)
+        detail_aperture.setOnClickListener(this)
+        detail_location.setOnClickListener(this)
+        detail_focal_length.setOnClickListener(this)
+        detail_camera.setOnClickListener(this)
+        detail_exposure.setOnClickListener(this)
+        btn_share.setOnClickListener(this)
+        btn_wallpaper.setOnClickListener(this)
+        detail_likes.setOnClickListener(this)
+        detail_see.setOnClickListener(this)
+        detail_download.setOnClickListener(this)
+        detail_likes_text.setOnClickListener(this)
+        detail_see_text.setOnClickListener(this)
+        detail_download_text.setOnClickListener(this)
 
         //视差效果
         scrollView.setScrollViewListener(object : ParallaxScrollView.ScrollviewListener {
@@ -98,6 +115,7 @@ class PhotoDetailActivity : RxBaseActivity(), View.OnClickListener {
                 .subscribe(this::initStatisticsUI)
     }
 
+
     @SuppressLint("SetTextI18n")
     fun initDetailUI(info: PhotoInfo) {
         mPhotoInfo = info
@@ -111,23 +129,13 @@ class PhotoDetailActivity : RxBaseActivity(), View.OnClickListener {
         detail_aperture.text = info.exif.aperture ?: "Unknown"
         var location: String = "Unknown"
         if (info.location != null) {
-            location = info.location.city + "," + info.location.country
+            val city: String = info.location.city ?: "Unknown"
+            location = city + "," + info.location.country
         }
         detail_location.text = location
-        detail_focal_length.text = info.exif.focal_length
-        detail_camera.text = info.exif.model
-        detail_exposure.text = info.exif.iso
-
-        detail_size.setOnClickListener(this)
-        detail_time.setOnClickListener(this)
-        detail_color.setOnClickListener(this)
-        detail_aperture.setOnClickListener(this)
-        detail_location.setOnClickListener(this)
-        detail_focal_length.setOnClickListener(this)
-        detail_camera.setOnClickListener(this)
-        detail_exposure.setOnClickListener(this)
-        btn_share.setOnClickListener(this)
-        btn_wallpaper.setOnClickListener(this)
+        detail_focal_length.text = info.exif.focal_length ?: "Unknown"
+        detail_camera.text = info.exif.model ?: "Unknown"
+        detail_exposure.text = info.exif.iso ?: "Unknown"
 
         downloadImage()
     }
@@ -137,12 +145,7 @@ class PhotoDetailActivity : RxBaseActivity(), View.OnClickListener {
         detail_likes.text = info.likesTotal
         detail_see.text = info.viewsTotal
         detail_download.text = info.downloadTotal
-        detail_likes.setOnClickListener(this)
-        detail_see.setOnClickListener(this)
-        detail_download.setOnClickListener(this)
-        detail_likes_text.setOnClickListener(this)
-        detail_see_text.setOnClickListener(this)
-        detail_download_text.setOnClickListener(this)
+
     }
 
     override fun onClick(v: View?) {
@@ -184,6 +187,8 @@ class PhotoDetailActivity : RxBaseActivity(), View.OnClickListener {
      */
     fun setWallpaper() {
         val dialog: ProDialog = ProDialog()
+        dialog.show(supportFragmentManager, "ProDialog")
+
         Glide.with(this).load(mPhotoInfo.urls.regular).asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(object : SimpleTarget<Bitmap>() {
@@ -191,11 +196,6 @@ class PhotoDetailActivity : RxBaseActivity(), View.OnClickListener {
                         dialog.dismiss()
                         mWallpaperManager.setBitmap(resource)
                         CommonUtil.showSnackBar(this@PhotoDetailActivity, btn_wallpaper, "设置壁纸成功")
-                    }
-
-                    override fun onStart() {
-                        super.onStart()
-                        dialog.show(supportFragmentManager, "ProDialog")
                     }
 
                     override fun onDestroy() {
@@ -214,6 +214,15 @@ class PhotoDetailActivity : RxBaseActivity(), View.OnClickListener {
                 .compose(bindToLifecycle())
                 .compose<Boolean>(mRxPermissions.ensure(Manifest.permission.WRITE_EXTERNAL_STORAGE))
                 .filter { aBoolean -> aBoolean }
+                .filter {
+                    t: Boolean ->
+                    if (FileUtil.isExistsImage(mPhotoInfo.links.download)) {
+                        CommonUtil.showSnackBar(this@PhotoDetailActivity, image_photo,
+                                "文件已经下载了哦,到 ../NickPhoto/download 查看吧")
+                        return@filter false
+                    }
+                    return@filter true
+                }
                 .observeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

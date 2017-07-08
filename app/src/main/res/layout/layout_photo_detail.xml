@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/bg_photo_detail">
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/btnBack"
@@ -24,7 +24,7 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:text="Profile"
-            android:textColor="@color/white_alpha_80"
+            android:textColor="@color/black_alpha_80"
             android:textSize="16sp"/>
 
     </RelativeLayout>
@@ -32,7 +32,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bg_photo_detail">
+        android:background="#FCFCFC">
 
         <com.lzx.nickphoto.widget.CircleImageView
             android:id="@+id/userAvatar"
@@ -48,7 +48,7 @@
             android:layout_below="@+id/userAvatar"
             android:layout_marginTop="15dp"
             android:gravity="center"
-            android:textColor="@color/white"
+            android:textColor="@color/black_alpha_80"
             android:textSize="20sp"/>
 
         <TextView
@@ -58,7 +58,7 @@
             android:layout_below="@+id/nickName"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:textColor="@color/white_alpha_80"
+            android:textColor="@color/black_alpha_60"
             android:textSize="14sp"/>
 
         <LinearLayout
@@ -88,7 +88,7 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="下载"
-                    android:textColor="@color/white_alpha_80"
+                    android:textColor="@color/black_alpha_80"
                     android:textSize="14sp"/>
             </LinearLayout>
 
@@ -111,7 +111,7 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="分享"
-                    android:textColor="@color/white_alpha_80"
+                    android:textColor="@color/black_alpha_80"
                     android:textSize="14sp"/>
             </LinearLayout>
 
@@ -134,17 +134,22 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="壁纸"
-                    android:textColor="@color/white_alpha_80"
+                    android:textColor="@color/black_alpha_80"
                     android:textSize="14sp"/>
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
 
+    <View
+        android:background="@color/black_alpha_20"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/bg_photo_detail_alpha">
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/detail_title"
@@ -153,7 +158,7 @@
             android:layout_marginBottom="10dp"
             android:padding="15dp"
             android:text="详情"
-            android:textColor="@color/white_alpha_80"
+            android:textColor="@color/black_alpha_80"
             android:textSize="14sp"/>
 
         <TextView
@@ -165,7 +170,7 @@
             android:drawableLeft="@drawable/ic_size"
             android:drawablePadding="15dp"
             android:gravity="center_vertical"
-            android:textColor="@color/white_alpha_80"
+            android:textColor="@color/black_alpha_80"
             android:textSize="14sp"/>
 
         <TextView
@@ -178,7 +183,7 @@
             android:drawableLeft="@drawable/ic_time"
             android:drawablePadding="15dp"
             android:gravity="center_vertical"
-            android:textColor="@color/white_alpha_80"
+            android:textColor="@color/black_alpha_80"
             android:textSize="14sp"/>
 
         <TextView
@@ -190,7 +195,7 @@
             android:drawableLeft="@drawable/ic_color"
             android:drawablePadding="15dp"
             android:gravity="center_vertical"
-            android:textColor="@color/white_alpha_80"
+            android:textColor="@color/black_alpha_80"
             android:textSize="14sp"/>
 
         <View
@@ -212,7 +217,7 @@
             android:drawableLeft="@drawable/ic_aperture"
             android:drawablePadding="15dp"
             android:gravity="center_vertical"
-            android:textColor="@color/white_alpha_80"
+            android:textColor="@color/black_alpha_80"
             android:textSize="14sp"/>
 
         <TextView
@@ -225,7 +230,7 @@
 
             android:drawablePadding="15dp"
             android:gravity="center_vertical"
-            android:textColor="@color/white_alpha_80"
+            android:textColor="@color/black_alpha_80"
             android:textSize="14sp"/>
 
         <TextView
@@ -238,7 +243,7 @@
             android:drawableLeft="@drawable/ic_focal_length"
             android:drawablePadding="15dp"
             android:gravity="center_vertical"
-            android:textColor="@color/white_alpha_80"
+            android:textColor="@color/black_alpha_80"
             android:textSize="14sp"/>
 
         <TextView
@@ -251,7 +256,7 @@
 
             android:drawablePadding="15dp"
             android:gravity="center_vertical"
-            android:textColor="@color/white_alpha_80"
+            android:textColor="@color/black_alpha_80"
             android:textSize="14sp"/>
 
         <TextView
@@ -264,7 +269,7 @@
             android:drawableLeft="@drawable/ic_exposure"
             android:drawablePadding="15dp"
             android:gravity="center_vertical"
-            android:textColor="@color/white_alpha_80"
+            android:textColor="@color/black_alpha_80"
             android:textSize="14sp"/>
 
         <TextView
@@ -276,7 +281,7 @@
             android:layout_marginTop="10dp"
             android:padding="15dp"
             android:text="统计"
-            android:textColor="@color/white_alpha_80"
+            android:textColor="@color/black_alpha_80"
             android:textSize="14sp"/>
 
         <TextView
@@ -288,7 +293,7 @@
             android:drawablePadding="15dp"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
-            android:textColor="@color/white_alpha_80"
+            android:textColor="@color/black_alpha_80"
             android:textSize="14sp"/>
 
         <TextView
@@ -300,7 +305,7 @@
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
             android:text="LIKES"
-            android:textColor="@color/white_alpha_80"
+            android:textColor="@color/black_alpha_80"
             android:textSize="14sp"/>
 
         <TextView
@@ -312,7 +317,7 @@
             android:drawablePadding="15dp"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
-            android:textColor="@color/white_alpha_80"
+            android:textColor="@color/black_alpha_80"
             android:textSize="14sp"/>
 
         <TextView
@@ -324,7 +329,7 @@
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
             android:text="VIEWS"
-            android:textColor="@color/white_alpha_80"
+            android:textColor="@color/black_alpha_80"
             android:textSize="14sp"/>
 
         <TextView
@@ -337,7 +342,7 @@
             android:drawablePadding="15dp"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
-            android:textColor="@color/white_alpha_80"
+            android:textColor="@color/black_alpha_80"
             android:textSize="14sp"/>
 
         <TextView
@@ -350,7 +355,7 @@
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
             android:text="DOWNLOADS"
-            android:textColor="@color/white_alpha_80"
+            android:textColor="@color/black_alpha_80"
             android:textSize="14sp"/>
 
     </RelativeLayout>

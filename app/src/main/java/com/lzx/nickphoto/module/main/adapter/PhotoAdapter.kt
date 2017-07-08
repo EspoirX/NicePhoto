@@ -25,7 +25,15 @@ import com.lzx.nickphoto.utils.adapter.LoadMoreAdapter
 /**
  * Created by lzx on 2017/7/5.
  */
-class PhotoAdapter(context: Context) : LoadMoreAdapter<PhotoInfo>(context) {
+class PhotoAdapter(context: Context)
+    : LoadMoreAdapter<PhotoInfo>(context) {
+
+    lateinit var mOnDownloadClickListener: OnDownloadClickListener
+
+    fun setOnDownloadClickListener(downloadClickListener: OnDownloadClickListener) {
+        mOnDownloadClickListener = downloadClickListener
+    }
+
     override fun getViewType(position: Int): Int {
         return 0
     }
@@ -42,11 +50,11 @@ class PhotoAdapter(context: Context) : LoadMoreAdapter<PhotoInfo>(context) {
                 .into(holder.mImageView)
         holder.mImageTitle.text = info.user.name
 
-        holder.itemView.setOnClickListener {
+        holder.mImageView.setOnClickListener {
             val intent: Intent = Intent(context, PhotoDetailActivity::class.java)
             intent.putExtra("photoId", info.id)
-            intent.putExtra("photoUrl",info.urls.small)
-            intent.putExtra("photoColor",info.color)
+            intent.putExtra("photoUrl", info.urls.small)
+            intent.putExtra("photoColor", info.color)
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                 context.startActivity(intent)
             } else {
@@ -56,7 +64,15 @@ class PhotoAdapter(context: Context) : LoadMoreAdapter<PhotoInfo>(context) {
                 ActivityCompat.startActivity(context, intent, options.toBundle())
             }
         }
+
+        holder.mBtnDownload.setOnClickListener {
+            if (mOnDownloadClickListener != null)
+                mOnDownloadClickListener.download(holder.mBtnDownload, info.links.download)
+        }
+
+
     }
+
 
     override fun onCreateBaseViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_main_photo, parent, false)
@@ -65,9 +81,13 @@ class PhotoAdapter(context: Context) : LoadMoreAdapter<PhotoInfo>(context) {
 
     private inner class BannerHolder(itemView: View) : BaseViewHolder(itemView, context, false) {
         var mImageView: ImageView = find(R.id.image_photo)
+        var mBtnDownload: ImageView = find(R.id.download_btn)
         var mImageTitle: TextView = find(R.id.image_title)
         var mRootLayout: RelativeLayout = find(R.id.root_layout)
     }
 
+    interface OnDownloadClickListener {
+        fun download(view: View, downloadUrl: String)
+    }
 
 }

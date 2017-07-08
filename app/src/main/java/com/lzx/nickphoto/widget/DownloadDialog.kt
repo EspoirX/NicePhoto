@@ -46,7 +46,7 @@ class DownloadDialog : RxBaseDialog() {
                     override fun completed(task: BaseDownloadTask?) {
                         mProBar.isIndeterminate = false
                         mProBar.progress = task?.smallFileTotalBytes!!
-                        val msg = String.format("图片已保存至 %s 文件夹", "NickPhoto/download")
+                        val msg = String.format("图片已保存至 %s 文件夹", "../NickPhoto/download")
                         CommonUtil.toast(activity, msg)
                         dismiss()
                     }

@@ -13,7 +13,7 @@ class ProDialog : RxBaseDialog() {
     }
 
     override fun initView() {
-
+        isCancelable = false
     }
 
     override fun onResume() {
