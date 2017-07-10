@@ -215,7 +215,6 @@ class PhotoDetailActivity : RxBaseActivity(), View.OnClickListener {
                 .compose<Boolean>(mRxPermissions.ensure(Manifest.permission.WRITE_EXTERNAL_STORAGE))
                 .filter { aBoolean -> aBoolean }
                 .filter {
-                    t: Boolean ->
                     if (FileUtil.isExistsImage(mPhotoInfo.links.download)) {
                         CommonUtil.showSnackBar(this@PhotoDetailActivity, image_photo,
                                 "文件已经下载了哦,到 ../NickPhoto/download 查看吧")
@@ -235,7 +234,6 @@ class PhotoDetailActivity : RxBaseActivity(), View.OnClickListener {
                     CommonUtil.toast(this@PhotoDetailActivity, "下载失败,请重试")
                 })
     }
-
 
     override fun onBackPressed() {
         finishActivity(0)
